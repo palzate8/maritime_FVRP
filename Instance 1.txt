@@ -1,4 +1,4 @@
-Latitud (rad)	Longitud (rad)	TEUs
+Latitude (rad)	Longitude (rad)	TEUs
 12,5110625	-69,974224	198
 18,42423	-69,6345	789
 14,6		-61,08333	263
