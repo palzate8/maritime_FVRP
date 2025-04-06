@@ -1,0 +1,3 @@
+Latitud (rad)	Longitud (rad)	TEUs
+35,88556	14,5475		493
+35,84194	14,54306	1644

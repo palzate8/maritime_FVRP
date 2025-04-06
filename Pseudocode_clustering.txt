@@ -1,0 +1,37 @@
+Begin
+
+1. Import required libraries: ortools, geopy, scikit-learn, numpy, matplotlib, scipy
+
+2. Define function geo_distance(point1, point2):
+      - Compute the geographical distance in kilometers between two coordinates
+        using the great-circle distance formula
+
+3. Define function geo_distance_matrix(points):
+      - Initialize an n x n zero matrix
+      - For each pair of points:
+           - Calculate the geographical distance
+           - Store the result in the symmetric matrix
+
+4. Define function haversine_distance(coord1, coord2):
+      - Convert latitudes and longitudes to radians
+      - Compute latitude and longitude differences
+      - Apply the Haversine formula to obtain the distance in kilometers
+
+5. Define class HaversineKMeans inheriting from BaseEstimator and ClusterMixin:
+      - Constructor with parameters: number of clusters, max iterations, tolerance, random seed
+      - Method fit(X):
+            - Randomly initialize cluster centers from the data points
+            - For a maximum number of iterations:
+                 - Assign each point to the nearest center using the Haversine distance
+                 - Compute new centers as the geographical average of the assigned points
+                 - Check convergence condition
+            - Store final labels and cluster centers
+
+6. Define a set of points (coordinates of maritime ports)
+
+7. Compute the geographical distance matrix using geo_distance_matrix()
+
+8. Apply HaversineKMeans model to cluster the ports
+
+End
+

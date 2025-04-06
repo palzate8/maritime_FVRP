@@ -1,0 +1,88 @@
+BEGIN
+
+1. Import required libraries: PuLP, NumPy, pandas, math
+
+2. Define function haversine_distance(lat1, lon1, lat2, lon2):
+    - Convert coordinates to radians
+    - Apply Haversine formula
+    - Return great-circle distance in nautical miles
+
+3. Define function create_distance_matrix(ports_df):
+    - Initialize empty distance matrix
+    - For each pair of ports:
+        - Calculate Haversine distance
+        - Store in matrix
+    - Return matrix
+
+4. Define function calculate_logistical_cost(distance):
+    - Return 1696.3 * exp(5e-5 * distance)
+
+5. Define function calculate_environmental_cost(distance):
+    - Return 0.0864 * (distance^0.9708)
+
+6. Define function validate_vrp_data(ports_df, vessels_df):
+    - Check that the first port is the depot (demand = 0)
+    - Verify that total vessel capacity ≥ total demand
+    - Check that port demand ≤ max vessel capacity
+    - Ensure coordinates are within valid ranges
+    - Return (is_valid, message)
+
+7. Define function solve_maritime_vrp(ports_df, vessels_df, alpha):
+    - Validate input data
+    - If invalid, print error and return None
+
+    - Compute distance matrix
+    - Compute beta = 1 - alpha
+
+    - Initialize optimization problem with objective: minimize total cost
+
+    - Define:
+        - Ports: 0 = depot, others = clients
+        - Vessels list
+        - Decision variables x[i,j,v]: binary, vessel v travels from i to j
+        - Position variables u[i,v]: integer (MTZ subtour elimination)
+
+    - Objective function:
+        For all arcs (i, j) and vessels v:
+            alpha * logistic_cost(i,j) * x[i,j,v] +
+            beta * environmental_cost(i,j) * demand[j] * x[i,j,v]
+
+    - Constraints:
+        1. Each client must be visited exactly once (across all vessels)
+        2. Each vessel must:
+            - Leave the depot at most once
+            - Return to depot at most once
+            - Maintain flow conservation at each client
+        3. For each vessel:
+            - Total cargo carried ≤ vessel capacity
+        4. MTZ constraints:
+            - Prevent subtours for each vessel
+
+    - Solve model using CBC solver
+
+    IF solution is optimal THEN:
+        - Compute total logistic and environmental costs
+        - Extract routes for each vessel:
+            - Start at depot
+            - Follow x[i,j,v] = 1 to construct route
+            - Track loads and costs for each arc
+        - Return dictionary with full solution info
+    ELSE:
+        - Print infeasibility message
+        - Return None
+
+8. Define function sensitivity_analysis(ports_df, vessels_df, alpha_values):
+    - For each alpha in alpha_values:
+        - Solve VRP with that alpha
+        - Store result if solution found
+
+    - Return list of solutions
+
+9. Define main():
+    - Create sample port and vessel datasets
+    - Validate data
+    - Define range of alpha values (0.0 to 1.0)
+    - Perform sensitivity analysis
+    - Print total cost breakdown and vessel routes for each solution
+
+END
