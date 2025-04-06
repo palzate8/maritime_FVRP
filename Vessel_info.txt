@@ -1,0 +1,10 @@
+Ship		Capacity
+Feeder		1000
+Feedermax	2000
+Handysize	3000
+Sub- PanaMax	5000
+Panamax		7000
+Post-PanaMax	10000
+Neo-Panamax	14000
+ULCS		20000
+Mega_container_Ship	23000
