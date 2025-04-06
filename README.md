@@ -1,4 +1,4 @@
-# Optimization of Container Vessel Routing through Geographic Clustering
+# Optimization of Container Vessel Routing
 
 This repository includes the data, pseudocode, and code used in the development of a methodology for optimizing the routing of container vessels. The approach is based on geographic clustering of ports and the subsequent optimization of both intra-cluster and inter-cluster routes.
 
